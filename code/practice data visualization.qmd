@@ -1,0 +1,33 @@
+---
+here---
+title: "biol708 practice data vizs"
+format: html
+editor: visual
+---
+
+## Practicing Data Visualization
+
+```{r}
+install.packages("here")
+
+#Load National Parks data
+
+#National Parks in California
+ca <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/ca.csv") 
+
+#Acadia National Park
+acadia <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/acadia.csv")
+
+#Southeast US National Parks
+se <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/se.csv")
+
+#2016 Visitation for all Pacific West National Parks
+visit_16 <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/visit_16.csv")
+
+#All Nationally designated sites in Massachusetts
+mass <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/mass.csv")
+
+#make some plots
+ggplot(ca) +geom_point(aes(x=year, y=visitors))
+
+```
