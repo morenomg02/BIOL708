@@ -28,6 +28,18 @@ visit_16 <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science
 mass <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/mass.csv")
 
 #make some plots
-ggplot(ca) +geom_point(aes(x=year, y=visitors))
+ggplot(ca) +geom_point(aes(x=year, y=visitors, color=park_name))+ labs(y='Visitation', title='National Park Visitors')+ theme_dark() + theme(legend.title=element_blank())
 
+#visitors by state for visit_16
+#ggplot(visit_16) +geom_point(aes(x=state , y=visitors))
+
+#SE parks
+ggplot(se) +geom_point(aes(x=year, y=visitors, color=state))+ labs(y='Visitation', title='Southeast U.S. National Park Visitors') + theme(legend.title=element_blank()) + theme(axis.text.x=element_text(angle=45, size=8))
+
+# boxplot for SE parks
+ggplot(se) + geom_boxplot(aes(x=park_name, y=visitors)) 
+
+ggplot(se) + geom_point(aes(x=year, y=visitors))+ facet_wrap(~state, scale='free') + xlim(c(1930,2020))
+
+ggplot(se)+ geom_line(aes(x=year, y=visitors, color=park_name)) + geom_point(aes(x=year, y=visitors, color=park_name))+ geom_smooth(aes(x=year, y=visitors, color=park_name))
 ```
