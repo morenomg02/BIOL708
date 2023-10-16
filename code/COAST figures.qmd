@@ -19,23 +19,30 @@ library(lubridate)
 
 #Monterey (historical HAB hotspot)
 MBW<-read.csv("C:/Users/Mariam Moreno/Downloads/HABs-MontereyWharf_8e90_78f0_b77c.csv")
-MBW2<-filter(MBW,time > 2023-01-08)
-#date2 <- format(mdy_hms(time),format = "%m/%d/%Y")
 
 
-ggplot(MBW)+geom_point(aes(x=time, y=Pseudo_nitzschia_delicatissima_group))+labs(x='Year',y='P.nitzschia delicatissima', title="Pseudo-nitzschia delicatissima Abundances in Monterey Bay") 
-#+scale_y_continuous(n.breaks = 10)
+ggplot(MBW)+geom_point(aes(x=time, y=Pseudo_nitzschia_delicatissima_group))+labs(x='Year',y='P.nitzschia delicatissima', title="Pseudo-nitzschia delicatissima Abundances in Monterey Bay")+theme(axis.text.x=element_text(angle=45, size=4))+theme(axis.text.y=element_text(size=6))
+
 ```
 
-Figure 1. *Pseudo-nitzschia delicatissima* abundances taken from the Monterey Bay Wharf between November 2010 and October 2023
+Figure 1. *Pseudo-nitzschia delicatissima* abundances taken from the Monterey Bay Wharf between March 2022 and April 2023
 
 ```{r}
 #Figure 2 AK SST in Juneau
 
+library(tidyverse)
 library(scales)
+library(ggplot2)
+library(lubridate)
 
 AK_SST<-read.csv("C:/Users/Mariam Moreno/Downloads/Juneau SST.csv")
-ggplot(AK_SST)+geom_line(aes(x=datetime, y=water_temp))+geom_point(aes(x=datetime, y=water_temp))+labs(x='Year', y='Temperature (Farenheit)', title='Sea Surface Temperature')
+#datetime<-select(AK_SST, datetime)
+# date1 <- format(as.POSIXct(datetime,
+#                           format = '%Y/%m/%d %H:%M:%S'),
+#               format = '%m-%Y')
+
+ggplot(AK_SST)+geom_line(aes(x=datetime, y=water_temp))+geom_point(aes(x=datetime, y=water_temp))+labs(x='Year', y='Temperature (Farenheit)', title='Sea Surface Temperature')+theme(axis.text.x=element_text(angle=45, size=4))
+
 ```
 
-Figure 2. Sea surface temperature (Farenheit) taken in Juneau, Alaska from January 2018 to April 2021.
+Figure 2. Sea surface temperature (Farenheit) taken in Juneau, Alaska from April 2020 to April 2021.
