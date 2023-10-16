@@ -43,3 +43,74 @@ ggplot(se) + geom_point(aes(x=year, y=visitors))+ facet_wrap(~state, scale='free
 
 ggplot(se)+ geom_line(aes(x=year, y=visitors, color=park_name)) + geom_point(aes(x=year, y=visitors, color=park_name))+ geom_smooth(aes(x=year, y=visitors, color=park_name))
 ```
+
+## Data Wrangling
+
+```{r}
+library(tidyverse)
+
+gapminder<- readr::read_csv('https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/gapminder.csv')
+
+head(gapminder)
+tail(gapminder)
+str(gapminder)
+
+unique(gapminder$continent)
+summary(gapminder$lifeExp)
+
+filter(gapminder, lifeExp<29)
+
+filter(gapminder, country=='Mexico')
+
+filter(gapminder, country %in% c('Mexico','Peru'))
+
+#creates new data set with given parameters
+PeruMex<-filter(gapminder, country %in% c('Mexico', 'Peru'))
+
+Brazil<-filter(gapminder, country=='Brazil',year>1986)
+mean(Brazil$lifeExp)
+
+
+select(gapminder,-year)
+
+#use select and filter together
+gap_cambodia<-filter(gapminder, country=='Cambodia')
+gap_cambodia2<-select(gap_cambodia, -lifeExp, -continent)
+
+#pipe function
+gapminder %>% head()
+gap_cambodia<-gapminder %>%
+  filter(country=='Cambodia') %>%
+  select(-continent, -lifeExp)
+
+gapminder %>%
+  mutate(gdp=pop*gdpPercap)
+
+Asia2007<-gapminder %>%
+  filter(continent=='Asia', year==2007) %>%
+  mutate(popThousands = pop/1000)
+
+#group_by()
+gapminder %>%
+  filter(year==2002) %>%
+  group_by(continent) %>% 
+  mutate(cont_pop = sum(pop)) %>%
+  ungroup()
+
+cont_pop<-gapminder %>%
+  group_by(continent, year) %>%
+  summarise(cont_pop = sum(pop)) %>%
+  arrange(year)
+
+gapminder %>%
+  mutate(gdp = pop * gdpPercap) %>%
+  group_by(continent) %>%
+  mutate(max_gdp = max(gdp)) %>%
+  filter(gdp == max_gdp)
+
+AsiaLE<-gapminder %>%
+  filter(continent=='Asia') %>%
+  summarize(MaxLE = max(lifeExp)) %>%
+  arrange(year)
+
+```
