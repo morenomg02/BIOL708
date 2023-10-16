@@ -1,0 +1,41 @@
+---
+title: "Data Viz HW"
+format: docx
+editor: visual
+---
+
+## Figures for COAST grant
+
+```{r}
+
+#install.packages("here")
+#install.packages('lubridate')
+library(tidyverse)
+library(scales)
+library(ggplot2)
+library(lubridate)
+
+#upload data
+
+#Monterey (historical HAB hotspot)
+MBW<-read.csv("C:/Users/Mariam Moreno/Downloads/HABs-MontereyWharf_8e90_78f0_b77c.csv")
+MBW2<-filter(MBW,time > 2023-01-08)
+#date2 <- format(mdy_hms(time),format = "%m/%d/%Y")
+
+
+ggplot(MBW)+geom_point(aes(x=time, y=Pseudo_nitzschia_delicatissima_group))+labs(x='Year',y='P.nitzschia delicatissima', title="Pseudo-nitzschia delicatissima Abundances in Monterey Bay") 
+#+scale_y_continuous(n.breaks = 10)
+```
+
+Figure 1. *Pseudo-nitzschia delicatissima* abundances taken from the Monterey Bay Wharf between November 2010 and October 2023
+
+```{r}
+#Figure 2 AK SST in Juneau
+
+library(scales)
+
+AK_SST<-read.csv("C:/Users/Mariam Moreno/Downloads/Juneau SST.csv")
+ggplot(AK_SST)+geom_line(aes(x=datetime, y=water_temp))+geom_point(aes(x=datetime, y=water_temp))+labs(x='Year', y='Temperature (Farenheit)', title='Sea Surface Temperature')
+```
+
+Figure 2. Sea surface temperature (Farenheit) taken in Juneau, Alaska from January 2018 to April 2021.
